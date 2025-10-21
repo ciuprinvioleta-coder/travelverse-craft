@@ -1,0 +1,26 @@
+{
+  "currentMonth": "October 2025",
+  "destinations": [
+    {
+      "name": "Santorini, Greece",
+      "temperature": "18-22°C",
+      "rainfall": "Low",
+      "reason": "Perfect weather for exploring whitewashed villages and stunning sunsets",
+      "highlight": "Wine tasting season begins"
+    },
+    {
+      "name": "Kyoto, Japan",
+      "temperature": "15-20°C",
+      "rainfall": "Moderate",
+      "reason": "Autumn foliage season in full bloom with stunning fall colors",
+      "highlight": "Traditional tea ceremonies and temple visits"
+    },
+    {
+      "name": "Patagonia, Argentina",
+      "temperature": "10-15°C",
+      "rainfall": "Low",
+      "reason": "Spring trekking season with wildflowers and fewer crowds",
+      "highlight": "Glacier trekking and wildlife spotting"
+    }
+  ]
+}

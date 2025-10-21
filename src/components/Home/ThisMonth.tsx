@@ -1,38 +1,40 @@
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Thermometer, CloudRain, CalendarDays } from "lucide-react";
 
-const destinations = [
-  {
-    name: "Santorini, Greece",
-    temperature: "18-22°C",
-    rainfall: "Low",
-    reason: "Perfect weather for exploring whitewashed villages and stunning sunsets",
-    highlight: "Wine tasting season begins",
-  },
-  {
-    name: "Kyoto, Japan",
-    temperature: "15-20°C",
-    rainfall: "Moderate",
-    reason: "Cherry blossom season in full bloom",
-    highlight: "Traditional tea ceremonies",
-  },
-  {
-    name: "Patagonia, Argentina",
-    temperature: "10-15°C",
-    rainfall: "Low",
-    reason: "Ideal hiking conditions and fewer crowds",
-    highlight: "Glacier trekking season",
-  },
-];
+interface Destination {
+  name: string;
+  temperature: string;
+  rainfall: string;
+  reason: string;
+  highlight: string;
+}
+
+interface DestinationsData {
+  currentMonth: string;
+  destinations: Destination[];
+}
 
 export const ThisMonth = () => {
+  const [data, setData] = useState<DestinationsData | null>(null);
+
+  useEffect(() => {
+    fetch('/content/destinations-this-month.json')
+      .then((res) => res.json())
+      .then((jsonData) => setData(jsonData))
+      .catch((error) => console.error('Error loading destinations:', error));
+  }, []);
+
+  if (!data) {
+    return null;
+  }
   return (
     <section className="py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-4">
             <CalendarDays className="w-5 h-5" />
-            <span className="font-semibold">March 2024</span>
+            <span className="font-semibold">{data.currentMonth}</span>
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Best Places to Visit This Month
@@ -43,7 +45,7 @@ export const ThisMonth = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {destinations.map((dest, index) => (
+          {data.destinations.map((dest, index) => (
             <Card
               key={index}
               className="p-6 bg-gradient-card shadow-medium hover:shadow-strong transition-all duration-300 hover:-translate-y-1"

@@ -19,6 +19,7 @@ const trips = [
     groupSize: "8-12 people",
     difficulty: "Easy",
     description: "Experience the magic of the Adriatic coast with visits to hidden villages, coastal hikes, and authentic local cuisine.",
+    signupUrl: "https://tally.so/r/your-mediterranean-trip-form",
   },
   {
     id: 2,
@@ -31,6 +32,7 @@ const trips = [
     groupSize: "10-15 people",
     difficulty: "Moderate",
     description: "Explore ancient temples, vibrant markets, and pristine beaches in this comprehensive Southeast Asian journey.",
+    signupUrl: "https://tally.so/r/your-asia-trip-form",
   },
 ];
 
@@ -106,8 +108,11 @@ const Trips = () => {
                         <span className="text-2xl font-bold text-card-foreground">{trip.price}</span>
                         <span className="text-sm text-muted-foreground">per person</span>
                       </div>
-                      <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all hover:scale-105">
-                        Learn More
+                      <Button 
+                        onClick={() => window.open(trip.signupUrl, '_blank')}
+                        className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all hover:scale-105"
+                      >
+                        Sign Up for This Trip
                       </Button>
                     </div>
                   </div>

@@ -10,7 +10,9 @@ export const Newsletter = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast.success("Thanks for subscribing! Check your inbox for confirmation.");
+      // Redirect to external newsletter signup form
+      window.open(`https://tally.so/r/your-newsletter-form?email=${encodeURIComponent(email)}`, '_blank');
+      toast.success("Opening signup form... Please complete your subscription there!");
       setEmail("");
     }
   };

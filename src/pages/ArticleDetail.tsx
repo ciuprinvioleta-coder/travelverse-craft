@@ -5,6 +5,7 @@ import { Footer } from "@/components/Layout/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowLeft } from "lucide-react";
+import { parseMarkdown } from "@/lib/markdown-parser";
 import destination1 from "@/assets/destination-1.jpg";
 import destination2 from "@/assets/destination-2.jpg";
 import destination3 from "@/assets/destination-3.jpg";
@@ -49,56 +50,8 @@ const ArticleDetail = () => {
         if (!response.ok) throw new Error("Article not found");
         
         const text = await response.text();
+        const { frontmatter, content } = parseMarkdown(text);
         
-        // Parse frontmatter
-        const frontmatterMatch = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-        if (!frontmatterMatch) throw new Error("Invalid article format");
-
-        const [, frontmatterText, content] = frontmatterMatch;
-        
-        // Parse YAML-like frontmatter
-        const frontmatter: any = {};
-        let currentKey = "";
-        let inObject = false;
-        let objectData: any = {};
-
-        frontmatterText.split("\n").forEach((line) => {
-          const trimmedLine = line.trim();
-          
-          if (trimmedLine.startsWith("bestTime:")) {
-            currentKey = "bestTime";
-            inObject = true;
-            objectData = {};
-          } else if (inObject && trimmedLine.includes(":")) {
-            const [key, ...valueParts] = trimmedLine.split(":");
-            const value = valueParts.join(":").trim().replace(/^["']|["']$/g, "");
-            objectData[key.trim()] = value;
-          } else if (trimmedLine && !trimmedLine.startsWith("-") && trimmedLine.includes(":")) {
-            if (inObject) {
-              frontmatter[currentKey as keyof ArticleFrontmatter] = objectData;
-              inObject = false;
-            }
-            const [key, ...valueParts] = trimmedLine.split(":");
-            const value = valueParts.join(":").trim();
-            
-            if (key === "tags") {
-              frontmatter.tags = value
-                .replace(/^\[|\]$/g, "")
-                .split(",")
-                .map((t) => t.trim().replace(/^["']|["']$/g, ""));
-            } else if (key === "published") {
-              frontmatter.published = value === "true";
-            } else {
-              frontmatter[key as keyof ArticleFrontmatter] = value.replace(/^["']|["']$/g, "") as any;
-            }
-            currentKey = key;
-          }
-        });
-
-        if (inObject) {
-          frontmatter[currentKey as keyof ArticleFrontmatter] = objectData;
-        }
-
         setArticle({
           ...(frontmatter as ArticleFrontmatter),
           content,

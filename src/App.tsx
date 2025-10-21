@@ -19,6 +19,10 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          {/* Articles without locale (defaults to 'en') */}
+          <Route path="/articles" element={<Articles />} />
+          <Route path="/articles/:slug" element={<ArticleDetail />} />
+          {/* Articles with locale */}
           <Route path="/:locale/articles" element={<Articles />} />
           <Route path="/:locale/articles/:slug" element={<ArticleDetail />} />
           <Route path="/trips" element={<Trips />} />

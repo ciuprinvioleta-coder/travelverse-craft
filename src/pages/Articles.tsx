@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Calendar, MapPin, Search, X } from "lucide-react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { parseMarkdown } from "@/lib/markdown-parser";
 import destination1 from "@/assets/destination-1.jpg";
 import destination2 from "@/assets/destination-2.jpg";
 import destination3 from "@/assets/destination-3.jpg";
@@ -53,8 +54,10 @@ const Articles = () => {
   useEffect(() => {
     const loadArticles = async () => {
       try {
-        // Hardcoded article slugs - in production, you'd fetch this from a manifest
-        const slugs = ["hidden-gems-mediterranean", "ancient-temples-southeast-asia", "northern-lights-scandinavia"];
+        // Load article manifest
+        const manifestResponse = await fetch('/content/articles-manifest.json');
+        const manifest = await manifestResponse.json();
+        const slugs = manifest.articles || [];
         
         const loadedArticles = await Promise.all(
           slugs.map(async (slug) => {
@@ -63,28 +66,7 @@ const Articles = () => {
               if (!response.ok) return null;
               
               const text = await response.text();
-              const frontmatterMatch = text.match(/^---\n([\s\S]*?)\n---/);
-              if (!frontmatterMatch) return null;
-
-              const frontmatter: any = {};
-              frontmatterMatch[1].split("\n").forEach((line) => {
-                const colonIndex = line.indexOf(":");
-                if (colonIndex === -1) return;
-                
-                const key = line.substring(0, colonIndex).trim();
-                const value = line.substring(colonIndex + 1).trim();
-                
-                if (key === "tags") {
-                  frontmatter.tags = value
-                    .replace(/^\[|\]$/g, "")
-                    .split(",")
-                    .map((t) => t.trim().replace(/^["']|["']$/g, ""));
-                } else if (key === "published") {
-                  frontmatter.published = value === "true";
-                } else {
-                  frontmatter[key] = value.replace(/^["']|["']$/g, "");
-                }
-              });
+              const { frontmatter } = parseMarkdown(text);
 
               return { ...frontmatter, slug } as Article;
             } catch {

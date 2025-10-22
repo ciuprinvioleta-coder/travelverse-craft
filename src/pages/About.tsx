@@ -3,22 +3,16 @@ import { Footer } from "@/components/Layout/Footer";
 import { Card } from "@/components/ui/card";
 import { Mail, Instagram, Youtube, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 const About = () => {
-  return (
-    <div className="min-h-screen flex flex-col">
+  return <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 pt-20">
         {/* Hero Section */}
         <section className="py-16 lg:py-24 bg-gradient-to-b from-secondary/30 to-background">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-                Hi, I'm Alex 👋
-              </h1>
-              <p className="text-xl text-muted-foreground">
-                Travel blogger, adventure seeker, and storyteller from the road
-              </p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">Hi, I'm Violeta 👋</h1>
+              <p className="text-xl text-muted-foreground">Travel blogger, adventure seeker, and citizen of the world</p>
             </div>
           </div>
         </section>
@@ -36,11 +30,7 @@ const About = () => {
                     corporate job, sold most of my possessions, and set out to explore the world 
                     with just a backpack and a camera.
                   </p>
-                  <p>
-                    Over the past six years, I've visited 47 countries across 5 continents, hiked 
-                    through remote mountain villages, swam with whale sharks, tasted street food 
-                    in bustling night markets, and made friends from every corner of the globe.
-                  </p>
+                  <p>Over the past ten years, I've visited 48 countries across 5 continents, hiked through remote mountain villages, swam with whale sharks, tasted street food in bustling night markets, and made friends from every corner of the globe.</p>
                   <p>
                     WanderStories was born from my desire to share these experiences with others 
                     and inspire more people to step outside their comfort zones. Through detailed 
@@ -92,27 +82,15 @@ const About = () => {
                   Follow my adventures, ask questions, or just say hi!
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Button
-                    variant="outline"
-                    className="gap-2"
-                    onClick={() => window.open('mailto:hello@wanderstories.com', '_blank')}
-                  >
+                  <Button variant="outline" className="gap-2" onClick={() => window.open('mailto:hello@wanderstories.com', '_blank')}>
                     <Mail className="w-4 h-4" />
                     Email Me
                   </Button>
-                  <Button
-                    variant="outline"
-                    className="gap-2"
-                    onClick={() => window.open('https://instagram.com/wanderstories', '_blank')}
-                  >
+                  <Button variant="outline" className="gap-2" onClick={() => window.open('https://instagram.com/wanderstories', '_blank')}>
                     <Instagram className="w-4 h-4" />
                     Instagram
                   </Button>
-                  <Button
-                    variant="outline"
-                    className="gap-2"
-                    onClick={() => window.open('https://youtube.com/wanderstories', '_blank')}
-                  >
+                  <Button variant="outline" className="gap-2" onClick={() => window.open('https://youtube.com/wanderstories', '_blank')}>
                     <Youtube className="w-4 h-4" />
                     YouTube
                   </Button>
@@ -123,8 +101,6 @@ const About = () => {
         </section>
       </main>
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default About;

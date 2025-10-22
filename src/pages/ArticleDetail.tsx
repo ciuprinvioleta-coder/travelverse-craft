@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowLeft } from "lucide-react";
 import { parseMarkdown } from "@/lib/markdown-parser";
+import { SocialShare } from "@/components/ArticleDetail/SocialShare";
+import { RelatedArticles } from "@/components/ArticleDetail/RelatedArticles";
 import destination1 from "@/assets/destination-1.jpg";
 import destination2 from "@/assets/destination-2.jpg";
 import destination3 from "@/assets/destination-3.jpg";
@@ -149,13 +151,19 @@ const ArticleDetail = () => {
             {article.summary}
           </p>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-12">
-            {article.tags.map((tag) => (
-              <Badge key={tag} variant="outline">
-                {tag}
-              </Badge>
-            ))}
+          {/* Tags & Share */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-12">
+            <div className="flex flex-wrap gap-2">
+              {article.tags.map((tag) => (
+                <Badge key={tag} variant="outline">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+            <SocialShare 
+              title={article.title} 
+              url={`/${locale}/articles/${article.slug}`} 
+            />
           </div>
 
           {/* Best Time to Visit */}
@@ -205,6 +213,14 @@ const ArticleDetail = () => {
               </div>
             </div>
           )}
+
+          {/* Related Articles */}
+          <RelatedArticles 
+            currentSlug={article.slug}
+            currentCategory={article.category}
+            currentTags={article.tags}
+            locale={locale}
+          />
         </article>
       </main>
       <Footer />

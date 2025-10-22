@@ -2,8 +2,10 @@
   "articles": [
     "hidden-gems-mediterranean",
     "ancient-temples-southeast-asia",
-    "northern-lights-scandinavia"
+    "northern-lights-scandinavia",
+    "solo-travel-japan",
+    "hiking-patagonia"
   ],
-  "lastUpdated": "2024-03-21",
+  "lastUpdated": "2024-10-22",
   "instructions": "Add article slugs to the 'articles' array when creating new articles. The slug should match the markdown filename (without .md extension)."
 }

@@ -7,6 +7,10 @@ import Index from "./pages/Index";
 import Articles from "./pages/Articles";
 import ArticleDetail from "./pages/ArticleDetail";
 import Trips from "./pages/Trips";
+import About from "./pages/About";
+import Downloads from "./pages/Downloads";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +30,10 @@ const App = () => (
           <Route path="/:locale/articles" element={<Articles />} />
           <Route path="/:locale/articles/:slug" element={<ArticleDetail />} />
           <Route path="/trips" element={<Trips />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/downloads" element={<Downloads />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

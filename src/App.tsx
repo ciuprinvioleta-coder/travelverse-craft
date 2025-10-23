@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Articles from "./pages/Articles";
 import ArticleDetail from "./pages/ArticleDetail";
+import Destinations from "./pages/Destinations";
 import Trips from "./pages/Trips";
 import About from "./pages/About";
 import Downloads from "./pages/Downloads";
@@ -26,6 +27,7 @@ const App = () => (
           {/* Articles with locale */}
           <Route path="/:locale/articles" element={<Articles />} />
           <Route path="/:locale/articles/:slug" element={<ArticleDetail />} />
+          <Route path="/destinations" element={<Destinations />} />
           <Route path="/trips" element={<Trips />} />
           <Route path="/about" element={<About />} />
           <Route path="/downloads" element={<Downloads />} />
@@ -33,7 +35,7 @@ const App = () => (
           <Route path="/terms" element={<Terms />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
-      </Routes>
+        </Routes>
     </BrowserRouter>
   </TooltipProvider>
 );

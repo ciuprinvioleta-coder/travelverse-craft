@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowLeft } from "lucide-react";
 import { parseMarkdown } from "@/lib/markdown-parser";
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import { SocialShare } from "@/components/ArticleDetail/SocialShare";
 import { RelatedArticles } from "@/components/ArticleDetail/RelatedArticles";
 import destination1 from "@/assets/destination-1.jpg";
@@ -186,13 +188,7 @@ const ArticleDetail = () => {
               prose-strong:text-foreground prose-strong:font-semibold
               prose-a:text-accent prose-a:no-underline hover:prose-a:underline"
             dangerouslySetInnerHTML={{ 
-              __html: article.content
-                .replace(/\n\n/g, '</p><p>')
-                .replace(/^/, '<p>')
-                .replace(/$/, '</p>')
-                .replace(/#{3}\s+(.+)/g, '<h3>$1</h3>')
-                .replace(/#{2}\s+(.+)/g, '<h2>$1</h2>')
-                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+              __html: DOMPurify.sanitize(marked(article.content) as string)
             }}
           />
 

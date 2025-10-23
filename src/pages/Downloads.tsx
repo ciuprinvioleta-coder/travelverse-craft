@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Download, FileText, MapPin } from "lucide-react";
+import { toast } from "sonner";
+import { z } from "zod";
 
 interface DownloadItem {
   id: number;
@@ -78,6 +80,23 @@ const downloads: DownloadItem[] = [
     downloadUrl: "/downloads/northern-lights-guide.pdf",
   },
 ];
+
+// Validate newsletter URLs
+const urlSchema = z.string().url().refine(
+  (url) => url.startsWith('https://tally.so/'),
+  { message: 'Newsletter URL must be from approved domain (tally.so)' }
+);
+
+const handleNewsletterSignup = () => {
+  const newsletterUrl = 'https://tally.so/r/your-newsletter-form';
+  const result = urlSchema.safeParse(newsletterUrl);
+  if (!result.success) {
+    toast.error("Invalid newsletter URL");
+    console.error(result.error);
+    return;
+  }
+  window.open(result.data, '_blank');
+};
 
 const Downloads = () => {
   return (
@@ -162,7 +181,7 @@ const Downloads = () => {
                 plus exclusive content and travel tips delivered straight to your inbox.
               </p>
               <Button
-                onClick={() => window.open('https://tally.so/r/your-newsletter-form', '_blank')}
+                onClick={handleNewsletterSignup}
                 className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all hover:scale-105"
               >
                 Subscribe to Newsletter

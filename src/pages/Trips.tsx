@@ -6,6 +6,24 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Users, DollarSign, MapPin } from "lucide-react";
 import destination1 from "@/assets/destination-1.jpg";
 import destination2 from "@/assets/destination-2.jpg";
+import { toast } from "sonner";
+import { z } from "zod";
+
+// Validate signup URLs are from trusted domains
+const urlSchema = z.string().url().refine(
+  (url) => url.startsWith('https://tally.so/') || url.startsWith('https://forms.gle/'),
+  { message: 'Signup URL must be from approved domain (tally.so or forms.gle)' }
+);
+
+const handleSignup = (signupUrl: string) => {
+  const result = urlSchema.safeParse(signupUrl);
+  if (!result.success) {
+    toast.error("Invalid signup URL");
+    console.error(result.error);
+    return;
+  }
+  window.open(result.data, '_blank');
+};
 
 const trips = [
   {
@@ -109,7 +127,7 @@ const Trips = () => {
                         <span className="text-sm text-muted-foreground">per person</span>
                       </div>
                       <Button 
-                        onClick={() => window.open(trip.signupUrl, '_blank')}
+                        onClick={() => handleSignup(trip.signupUrl)}
                         className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all hover:scale-105"
                       >
                         Sign Up for This Trip

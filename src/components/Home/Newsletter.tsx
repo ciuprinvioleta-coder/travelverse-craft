@@ -3,18 +3,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail } from "lucide-react";
 import { toast } from "sonner";
+import { z } from "zod";
+
+const emailSchema = z.string().trim().email({ message: "Invalid email address" }).max(255, { message: "Email must be less than 255 characters" });
 
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      // Redirect to external newsletter signup form
-      window.open(`https://tally.so/r/your-newsletter-form?email=${encodeURIComponent(email)}`, '_blank');
-      toast.success("Opening signup form... Please complete your subscription there!");
-      setEmail("");
+    
+    // Validate email
+    const result = emailSchema.safeParse(email);
+    if (!result.success) {
+      toast.error(result.error.errors[0].message);
+      return;
     }
+    
+    // Redirect to external newsletter signup form
+    window.open(`https://tally.so/r/your-newsletter-form?email=${encodeURIComponent(result.data)}`, '_blank');
+    toast.success("Opening signup form... Please complete your subscription there!");
+    setEmail("");
   };
 
   return (

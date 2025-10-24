@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Globe, Menu, X } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import logo from "@/assets/logo.png";
 const languages = [{
   code: "en",
   label: "English"
@@ -21,9 +22,11 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-full bg-gradient-hero flex items-center justify-center transition-transform group-hover:scale-110">
-              <span className="text-xl font-bold text-primary-foreground">W</span>
-            </div>
+            <img 
+              src={logo} 
+              alt="Travel with Violeta" 
+              className="w-12 h-12 transition-transform group-hover:scale-110"
+            />
             <span className="text-xl font-bold text-foreground hidden sm:inline">Travel with Violeta</span>
           </Link>
 

@@ -180,7 +180,7 @@ const Articles = () => {
                     <SelectTrigger>
                       <SelectValue placeholder="Country" />
                     </SelectTrigger>
-                    <SelectContent className="bg-background">
+                    <SelectContent>
                       <SelectItem value="all">All Countries</SelectItem>
                       {countries.map((country) => (
                         <SelectItem key={country} value={country}>
@@ -202,7 +202,7 @@ const Articles = () => {
                     <SelectTrigger>
                       <SelectValue placeholder="Category" />
                     </SelectTrigger>
-                    <SelectContent className="bg-background">
+                    <SelectContent>
                       <SelectItem value="all">All Categories</SelectItem>
                       {categories.map((category) => (
                         <SelectItem key={category} value={category}>
@@ -231,7 +231,7 @@ const Articles = () => {
                     <SelectTrigger>
                       <SelectValue placeholder="Tags" />
                     </SelectTrigger>
-                    <SelectContent className="bg-background">
+                    <SelectContent>
                       <SelectItem value="none">Select Tags</SelectItem>
                       {allTags.map((tag) => (
                         <SelectItem key={tag} value={tag} disabled={selectedTags.includes(tag)}>

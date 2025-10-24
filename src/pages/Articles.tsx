@@ -148,7 +148,7 @@ const Articles = () => {
         </section>
 
         {/* Filters Section */}
-        <section className="py-8 border-b bg-background/50 backdrop-blur-sm sticky top-20 z-10">
+        <section className="py-8 border-b bg-background/95 backdrop-blur-sm sticky top-20 z-40">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="flex flex-col gap-4">
               {/* Search and Select Filters */}
